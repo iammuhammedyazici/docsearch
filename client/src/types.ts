@@ -27,3 +27,16 @@ export interface OwnerOption {
   id: number;
   name: string;
 }
+
+export interface ExistingDocumentSummary {
+  id: number;
+  title: string;
+  fileName: string;
+  docType: string;
+  ownerName: string;
+  createdAt: string;
+}
+
+export type UploadDocumentResult =
+  | { duplicate: false; id: number; title: string }
+  | { duplicate: true; existing: ExistingDocumentSummary };

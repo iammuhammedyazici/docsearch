@@ -1,4 +1,4 @@
-import type { DocumentListItem, PagedResult } from "../types";
+import type { DocumentListItem, PagedResult, UploadDocumentResult } from "../types";
 
 export interface FetchDocumentsParams {
   q?: string;
@@ -30,4 +30,19 @@ export async function fetchDocuments(
   }
 
   return (await response.json()) as PagedResult<DocumentListItem>;
+}
+
+// 409 is a valid business outcome (duplicate content), not a fetch error —
+// only a non-201/409 status throws.
+export async function uploadDocument(formData: FormData): Promise<UploadDocumentResult> {
+  const response = await fetch("/api/documents", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (response.status === 201 || response.status === 409) {
+    return (await response.json()) as UploadDocumentResult;
+  }
+
+  throw new Error(`Yükleme başarısız oldu (HTTP ${response.status})`);
 }
