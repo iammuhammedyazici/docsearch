@@ -1,11 +1,3 @@
--- ============================================================
--- 01_seed.sql
--- SADECE PROTOTİP İÇİN örnek veri. Gerçekte bu veriler zaten
--- tabloda mevcut. Arama/ranking'i gösterebilmek için bilerek
--- BENZER başlıklar (Tedarik Sözleşmesi 2024/2025) ve fuzzy
--- test edilebilecek Türkçe karakterli başlıklar ekledim.
--- ============================================================
-
 INSERT INTO documents (title, file_name, doc_type, owner_id, owner_name, file_size, storage_path, created_at) VALUES
 ('Tedarik Sözleşmesi 2024',                 'tedarik-sozlesmesi-2024.pdf',      'sozlesme', 101, 'Ayşe Yılmaz',  284512, '/store/2024/01/tedarik-2024.pdf',   now() - interval '540 days'),
 ('Tedarik Sözleşmesi 2025',                 'tedarik-sozlesmesi-2025.pdf',      'sozlesme', 101, 'Ayşe Yılmaz',  291044, '/store/2025/01/tedarik-2025.pdf',   now() - interval '175 days'),
