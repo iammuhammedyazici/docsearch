@@ -86,4 +86,64 @@ public sealed class DocumentService(NpgsqlDataSource dataSource) : IDocumentServ
 
         return new PagedResult<DocumentListItem>(items.AsList(), total, page, pageSize);
     }
+
+    public async Task<UploadDocumentResult> UploadAsync(UploadDocumentRequest request, CancellationToken cancellationToken)
+    {
+        await using var connection = await dataSource.OpenConnectionAsync(cancellationToken);
+
+        var existing = await connection.QuerySingleOrDefaultAsync<ExistingDocumentSummary>(
+            new CommandDefinition("""
+                SELECT d.id AS "Id", d.title AS "Title", d.file_name AS "FileName", d.doc_type AS "DocType",
+                       d.owner_name AS "OwnerName", d.created_at AS "CreatedAt"
+                FROM document_search s
+                JOIN documents d ON d.id = s.document_id
+                WHERE s.content_hash = @ContentHash
+                """,
+                new { request.ContentHash },
+                cancellationToken: cancellationToken));
+
+        if (existing is not null)
+        {
+            return new UploadDocumentResult.Duplicate(existing);
+        }
+
+        await using var transaction = await connection.BeginTransactionAsync(cancellationToken);
+
+        var storagePath = $"/store/uploads/{request.FileName}";
+
+        var id = await connection.ExecuteScalarAsync<long>(new CommandDefinition("""
+            INSERT INTO documents (title, file_name, doc_type, owner_id, owner_name, file_size, storage_path, created_at)
+            VALUES (@Title, @FileName, @DocType, @OwnerId, @OwnerName, @FileSize, @StoragePath, now())
+            RETURNING id
+            """,
+            new
+            {
+                request.Title,
+                request.FileName,
+                request.DocType,
+                request.OwnerId,
+                request.OwnerName,
+                request.FileSize,
+                StoragePath = storagePath,
+            },
+            transaction,
+            cancellationToken: cancellationToken));
+
+        await connection.ExecuteAsync(new CommandDefinition("""
+            INSERT INTO document_search (document_id, search_text, content_hash)
+            VALUES (@DocumentId, unaccent(lower(@SearchText)), @ContentHash)
+            """,
+            new
+            {
+                DocumentId = id,
+                SearchText = $"{request.Title} {request.FileName}",
+                request.ContentHash,
+            },
+            transaction,
+            cancellationToken: cancellationToken));
+
+        await transaction.CommitAsync(cancellationToken);
+
+        return new UploadDocumentResult.Created(id, request.Title);
+    }
 }
