@@ -15,3 +15,15 @@ export interface PagedResult<T> {
   page: number;
   pageSize: number;
 }
+
+export interface DocumentFilters {
+  type: string;
+  ownerId: string;
+  from: string;
+  to: string;
+}
+
+export interface OwnerOption {
+  id: number;
+  name: string;
+}
