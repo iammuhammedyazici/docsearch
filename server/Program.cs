@@ -1,3 +1,4 @@
+using DocSearch.Api.Services;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connString = builder.Configuration.GetConnectionString("Postgres")
     ?? throw new InvalidOperationException("ConnectionStrings:Postgres tanımlı değil.");
 builder.Services.AddSingleton(NpgsqlDataSource.Create(connString));
+builder.Services.AddScoped<IDocumentService, DocumentService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
