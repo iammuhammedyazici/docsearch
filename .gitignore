@@ -1,0 +1,19 @@
+# .NET
+server/bin/
+server/obj/
+*.user
+
+# Node / Vite
+client/node_modules/
+client/dist/
+client/.vite/
+
+# Env & secrets
+.env
+.env.local
+*.local
+
+# IDE / OS
+.vs/
+.idea/
+.DS_Store

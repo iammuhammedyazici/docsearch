@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: docsearch-db
+    environment:
+      POSTGRES_DB: docsearch
+      POSTGRES_USER: docsearch
+      POSTGRES_PASSWORD: docsearch 
+    ports:
+      - "5432:5432"
+    volumes:
+      - docsearch_data:/var/lib/postgresql/data
+      # 00_init -> 01_seed -> 02_search_layer
+      - ./db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docsearch -d docsearch"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: ./server
+    container_name: docsearch-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Postgres: "Host=db;Port=5432;Database=docsearch;Username=docsearch;Password=docsearch"
+    ports:
+      - "5080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  docsearch_data:

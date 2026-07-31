@@ -1,0 +1,25 @@
+-- ============================================================
+-- 01_seed.sql
+-- SADECE PROTOTİP İÇİN örnek veri. Gerçekte bu veriler zaten
+-- tabloda mevcut. Arama/ranking'i gösterebilmek için bilerek
+-- BENZER başlıklar (Tedarik Sözleşmesi 2024/2025) ve fuzzy
+-- test edilebilecek Türkçe karakterli başlıklar ekledim.
+-- ============================================================
+
+INSERT INTO documents (title, file_name, doc_type, owner_id, owner_name, file_size, storage_path, created_at) VALUES
+('Tedarik Sözleşmesi 2024',                 'tedarik-sozlesmesi-2024.pdf',      'sozlesme', 101, 'Ayşe Yılmaz',  284512, '/store/2024/01/tedarik-2024.pdf',   now() - interval '540 days'),
+('Tedarik Sözleşmesi 2025',                 'tedarik-sozlesmesi-2025.pdf',      'sozlesme', 101, 'Ayşe Yılmaz',  291044, '/store/2025/01/tedarik-2025.pdf',   now() - interval '175 days'),
+('Hizmet Sözleşmesi - ABC Lojistik',        'hizmet-sozlesmesi-abc.pdf',        'sozlesme', 102, 'Mehmet Demir', 198334, '/store/2024/03/hizmet-abc.pdf',     now() - interval '480 days'),
+('Gizlilik Sözleşmesi (NDA)',               'nda-gizlilik.pdf',                 'sozlesme', 103, 'Zeynep Kaya',  102900, '/store/2024/05/nda.pdf',            now() - interval '420 days'),
+('Kira Sözleşmesi - Ümraniye Ofis',         'kira-sozlesmesi-umraniye.pdf',     'sozlesme', 104, 'Can Öztürk',   174820, '/store/2024/06/kira-umraniye.pdf',  now() - interval '360 days'),
+('İş Ortaklığı Sözleşmesi',                 'is-ortakligi-sozlesmesi.pdf',      'sozlesme', 102, 'Mehmet Demir', 220110, '/store/2024/09/is-ortakligi.pdf',   now() - interval '300 days'),
+('Bakım Sözleşmesi - Yıllık',               'bakim-sozlesmesi-yillik.pdf',      'sozlesme', 103, 'Zeynep Kaya',  156700, '/store/2025/02/bakim-yillik.pdf',   now() - interval '150 days'),
+('Fiyat Teklifi - Yazılım Geliştirme',      'teklif-yazilim-gelistirme.pdf',    'teklif',   102, 'Mehmet Demir', 88240,  '/store/2024/11/teklif-yazilim.pdf', now() - interval '250 days'),
+('Fiyat Teklifi - Donanım Alımı',           'teklif-donanim-alimi.pdf',         'teklif',   101, 'Ayşe Yılmaz',  76510,  '/store/2024/11/teklif-donanim.pdf', now() - interval '240 days'),
+('Teklif - Bulut Migrasyon Projesi',        'teklif-bulut-migrasyon.pdf',       'teklif',   103, 'Zeynep Kaya',  134002, '/store/2025/01/teklif-bulut.pdf',   now() - interval '160 days'),
+('Revize Teklif - Bulut Migrasyon',         'teklif-bulut-migrasyon-rev2.pdf',  'teklif',   103, 'Zeynep Kaya',  139880, '/store/2025/02/teklif-bulut-r2.pdf',now() - interval '145 days'),
+('Fiyat Teklifi - Bakım Yenileme',          'teklif-bakim-yenileme.pdf',        'teklif',   104, 'Can Öztürk',   69300,  '/store/2025/03/teklif-bakim.pdf',   now() - interval '120 days'),
+('Fatura #2024-0192 - Ofis Kırtasiye',      'fatura-2024-0192.pdf',             'fatura',   104, 'Can Öztürk',   45210,  '/store/2024/07/fatura-0192.pdf',    now() - interval '340 days'),
+('Fatura #2024-0231 - Sunucu Kirası',       'fatura-2024-0231.pdf',             'fatura',   102, 'Mehmet Demir', 48800,  '/store/2024/08/fatura-0231.pdf',    now() - interval '320 days'),
+('Fatura #2025-0007 - Danışmanlık Hizmeti', 'fatura-2025-0007.pdf',             'fatura',   101, 'Ayşe Yılmaz',  51230,  '/store/2025/01/fatura-0007.pdf',    now() - interval '165 days'),
+('Proforma Fatura - İhracat',               'proforma-fatura-ihracat.pdf',      'fatura',   104, 'Can Öztürk',   60740,  '/store/2025/02/proforma-ihracat.pdf',now() - interval '140 days');
