@@ -224,3 +224,143 @@
   font-size: 14px;
   color: #555;
 }
+
+.upload-trigger-button {
+  margin: 14px 0 0;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #4a7dfc;
+  background: #4a7dfc;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upload-trigger-button:hover {
+  background: #3a6ae0;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 10;
+}
+
+.modal {
+  background: white;
+  border-radius: 10px;
+  padding: 24px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal input[type="text"],
+.modal input[type="file"],
+.modal select {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.modal-actions button[type="button"] {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-actions button[type="submit"] {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #4a7dfc;
+  background: #4a7dfc;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-actions button[type="submit"]:disabled {
+  background: #a9c0f7;
+  border-color: #a9c0f7;
+  cursor: not-allowed;
+}
+
+.upload-success {
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #e3f6ea;
+  color: #227a48;
+  font-size: 14px;
+}
+
+.upload-warning {
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #fff8e1;
+  color: #8a6d00;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.upload-warning button {
+  align-self: flex-start;
+  padding: 4px 10px;
+  font-size: 13px;
+  border: 1px solid #8a6d00;
+  background: white;
+  color: #8a6d00;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upload-error {
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #fdf3f3;
+  color: #a52a2a;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.upload-error button {
+  padding: 4px 10px;
+  font-size: 13px;
+  border: 1px solid #a52a2a;
+  background: white;
+  color: #a52a2a;
+  border-radius: 6px;
+  cursor: pointer;
+}
