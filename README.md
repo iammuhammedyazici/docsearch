@@ -42,4 +42,4 @@ CASE.md    Problem yorumu, kararlar, teknik değerlendirme, iletişim
 - **Yeni altyapı yok** — arama, veritabanının kendi eklentileriyle (`pg_trgm` / `unaccent`).
 - **~400ms bütçesi** — GIN trigram index ile korunuyor.
 
-Kararların gerekçeleri, kabul ettiğim riskler ve teknik değerlendirme → **[CASE.md](./CASE.md)**
+Kararların gerekçeleri, kabul ettiğim riskler ve teknik değerlendirme → case.md dosyasında yer almaktadır.**
