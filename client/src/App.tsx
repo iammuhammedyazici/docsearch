@@ -4,9 +4,10 @@ import { DocumentList } from "./components/DocumentList";
 import { Filters } from "./components/Filters";
 import { Pagination } from "./components/Pagination";
 import { SearchBar } from "./components/SearchBar";
+import { UploadModal } from "./components/UploadModal";
 import { useDebounce } from "./hooks/useDebounce";
 import { useDocuments } from "./hooks/useDocuments";
-import type { DocumentFilters } from "./types";
+import type { DocumentFilters, OwnerOption } from "./types";
 
 const PAGE_SIZE = 20;
 
@@ -16,6 +17,7 @@ export default function App() {
   const [searchInput, setSearchInput] = useState("");
   const [filters, setFilters] = useState<DocumentFilters>(EMPTY_FILTERS);
   const [page, setPage] = useState(1);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const debouncedQuery = useDebounce(searchInput, 300);
 
   useEffect(() => {
@@ -62,6 +64,15 @@ export default function App() {
     [knownOwners]
   );
 
+  function handleOwnerUploaded(owner: OwnerOption) {
+    setKnownOwners((prev) => (prev[owner.id] === owner.name ? prev : { ...prev, [owner.id]: owner.name }));
+  }
+
+  function handleViewExisting(title: string) {
+    setSearchInput(title);
+    setIsUploadModalOpen(false);
+  }
+
   const activeFilterCount = Object.values(filters).filter(Boolean).length;
 
   const total = data?.total ?? 0;
@@ -73,6 +84,19 @@ export default function App() {
       <h1>Doküman Arama</h1>
 
       <SearchBar value={searchInput} onChange={setSearchInput} />
+
+      <button className="upload-trigger-button" onClick={() => setIsUploadModalOpen(true)}>
+        Doküman Yükle
+      </button>
+
+      {isUploadModalOpen && (
+        <UploadModal
+          owners={owners}
+          onClose={() => setIsUploadModalOpen(false)}
+          onUploaded={handleOwnerUploaded}
+          onViewExisting={handleViewExisting}
+        />
+      )}
 
       <Filters
         filters={filters}
